@@ -1,0 +1,27 @@
+Options +FollowSymLinks -MultiViews
+RewriteEngine On
+RewriteBase /STI_Queuing_System/
+
+# 1. SECURITY: Block direct access to "pages"
+RewriteCond %{THE_REQUEST} \s/STI_Queuing_System/pages/ [NC]
+RewriteRule ^ - [F,L]
+
+# 2. THE FIX: If the requested file or folder actually exists, DO NOT rewrite
+# This stops the infinite loop for api/login.php, css/style.css, etc.
+RewriteCond %{REQUEST_FILENAME} -f [OR]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^ - [L]
+
+# 3. Redirect root url to kiosk
+RewriteRule ^$ kiosk [L,R=301]
+
+# 4. Define your Routes
+RewriteRule ^kiosk/?$ pages/kiosk.php [L]
+RewriteRule ^monitor/?$ pages/monitor.php [L]
+RewriteRule ^staff-login/?$ pages/staff-login.php [L]
+RewriteRule ^staff-dashboard/?$ pages/staff-dashboard.php [L]
+
+# 5. API Routes (Cleaned up)
+# Only rewrite to .php if the user didn't type .php
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^api/(.+)$ api/$1.php [L]

@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Queue History Feature - Test Checklist</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 900px;
+            margin: 50px auto;
+            padding: 20px;
+            background: #f4f6f9;
+        }
+        h1 {
+            color: #0054A6;
+        }
+        .checklist {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .section {
+            margin-bottom: 30px;
+        }
+        .section h2 {
+            color: #0054A6;
+            border-bottom: 2px solid #0054A6;
+            padding-bottom: 8px;
+        }
+        .item {
+            padding: 10px;
+            margin: 8px 0;
+            background: #f8f9fa;
+            border-left: 4px solid #28a745;
+            border-radius: 4px;
+        }
+        .item input[type="checkbox"] {
+            margin-right: 10px;
+            transform: scale(1.2);
+        }
+        .item label {
+            font-size: 15px;
+        }
+        .status {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: bold;
+            margin-left: 10px;
+        }
+        .status.ready {
+            background: #d4edda;
+            color: #155724;
+        }
+        .status.pending {
+            background: #fff3cd;
+            color: #856404;
+        }
+        .instructions {
+            background: #e7f3ff;
+            padding: 15px;
+            border-radius: 6px;
+            margin-top: 20px;
+            border-left: 4px solid #0054A6;
+        }
+        .sql-box {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 15px;
+            border-radius: 6px;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            overflow-x: auto;
+            margin-top: 10px;
+        }
+        .warning {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+    </style>
+</head>
+<body>
+    <h1>📊 Queue History & Logs Feature - Test Checklist</h1>
+    
+    <div class="checklist">
+        <div class="section">
+            <h2>🗄️ Step 1: Database Migration <span class="status pending">REQUIRED</span></h2>
+            <div class="warning">
+                <strong>⚠️ Important:</strong> You must run the database migration before using the history feature!
+            </div>
+            
+            <div class="item">
+                <input type="checkbox" id="check1">
+                <label for="check1">Open phpMyAdmin or MySQL console</label>
+            </div>
+            
+            <div class="item">
+                <input type="checkbox" id="check2">
+                <label for="check2">Select the <code>queue_db</code> database</label>
+            </div>
+            
+            <div class="item">
+                <input type="checkbox" id="check3">
+                <label for="check3">Run the migration SQL script:</label>
+                <div class="instructions">
+                    <p><strong>Option 1 (phpMyAdmin):</strong></p>
+                    <ol>
+                        <li>Click on "SQL" tab</li>
+                        <li>Copy content from: <code>config/migration_add_history.sql</code></li>
+                        <li>Paste and click "Go"</li>
+                    </ol>
+                    
+                    <p><strong>Option 2 (Command Line):</strong></p>
+                    <div class="sql-box">mysql -u root -p queue_db < config/migration_add_history.sql</div>
+                </div>
+            </div>
+            
+            <div class="item">
+                <input type="checkbox" id="check4">
+                <label for="check4">Verify migration success (should see "Migration completed successfully!")</label>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>🔍 Step 2: Verify Database Changes <span class="status ready">VERIFICATION</span></h2>
+            
+            <div class="item">
+                <input type="checkbox" id="check5">
+                <label for="check5">Check if <code>queue_tickets</code> table has new columns:</label>
+                <div class="sql-box">DESCRIBE queue_tickets;</div>
+                <small>Should show: staff_id, transferred_to_department_id, notes columns</small>
+            </div>
+            
+            <div class="item">
+                <input type="checkbox" id="check6">
+                <label for="check6">Verify status enum includes new values:</label>
+                <div class="sql-box">SHOW COLUMNS FROM queue_tickets LIKE 'status';</div>
+                <small>Should include: no-show, skipped, transferred</small>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>🧪 Step 3: Test Basic Functionality <span class="status ready">TESTING</span></h2>
+            
+            <div class="item">
+                <input type="checkbox" id="check7">
+                <label for="check7">Login to staff dashboard</label>
+            </div>
+            
+            <div class="item">
+                <input type="checkbox" id="check8">
+                <label for="check8">Click "📊 History" tab in navigation</label>
+            </div>
+            
+            <div class="item">
+                <input type="checkbox" id="check9">
+                <label for="check9">Verify history table loads (may be empty if no data)</label>
+            </div>
+            
+            <div class="item">
+                <input type="checkbox" id="check10">
+                <label for="check10">Test queue workflow: Call Next → Mark Done</label>
+            </div>
+            
+            <div class="item">
+                <input type="checkbox" id="check11">
+                <label for="check11">Refresh history tab and verify new record appears</label>
+            </div>
+            
+            <div class="item">
+                <input type="checkbox" id="check12">
+                <label for="check12">Check if staff name appears in the record</label>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>🔧 Step 4: Test Filters <span class="status ready">TESTING</span></h2>
+            
+            <div class="item">
+                <input type="checkbox" id="check13">
+                <label for="check13">Test date range filter (select start and end dates)</label>
+            </div>
+            
+            <div class="item">
+                <input type="checkbox" id="check14">
+                <label for="check14">Test status filter (select "Completed", "Cancelled", etc.)</label>
+            </div>
+            
+            <div class="item">
+                <input type="checkbox" id="check15">
+                <label for="check15">Test search functionality (search by queue number or name)</label>
+            </div>
+            
+            <div class="item">
+                <input type="checkbox" id="check16">
+                <label for="check16">Test reset filters button</label>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>📥 Step 5: Test Export Features <span class="status ready">TESTING</span></h2>
+            
+            <div class="item">
+                <input type="checkbox" id="check17">
+                <label for="check17">Click "📥 Export CSV" button</label>
+            </div>
+            
+            <div class="item">
+                <input type="checkbox" id="check18">
+                <label for="check18">Verify CSV file downloads correctly</label>
+            </div>
+            
+            <div class="item">
+                <input type="checkbox" id="check19">
+                <label for="check19">Open CSV in Excel/Sheets and verify data</label>
+            </div>
+            
+            <div class="item">
+                <input type="checkbox" id="check20">
+                <label for="check20">Click "📄 Export PDF" button</label>
+            </div>
+            
+            <div class="item">
+                <input type="checkbox" id="check21">
+                <label for="check21">Verify PDF report opens in new tab</label>
+            </div>
+            
+            <div class="item">
+                <input type="checkbox" id="check22">
+                <label for="check22">Test "Print / Save as PDF" function in browser</label>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>🔒 Step 6: Test Role-Based Access <span class="status ready">SECURITY</span></h2>
+            
+            <div class="item">
+                <input type="checkbox" id="check23">
+                <label for="check23">Login as Cashier staff member</label>
+            </div>
+            
+            <div class="item">
+                <input type="checkbox" id="check24">
+                <label for="check24">Verify only Cashier department history is visible</label>
+            </div>
+            
+            <div class="item">
+                <input type="checkbox" id="check25">
+                <label for="check25">Login as Registrar/Admission staff</label>
+            </div>
+            
+            <div class="item">
+                <input type="checkbox" id="check26">
+                <label for="check26">Verify only their department's history is visible</label>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>📱 Step 7: Test Responsive Design <span class="status ready">OPTIONAL</span></h2>
+            
+            <div class="item">
+                <input type="checkbox" id="check27">
+                <label for="check27">Test on mobile device or browser responsive mode</label>
+            </div>
+            
+            <div class="item">
+                <input type="checkbox" id="check28">
+                <label for="check28">Verify filters stack vertically on mobile</label>
+            </div>
+            
+            <div class="item">
+                <input type="checkbox" id="check29">
+                <label for="check29">Verify table is scrollable on small screens</label>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2>✅ Final Verification <span class="status ready">COMPLETE</span></h2>
+            
+            <div class="item">
+                <input type="checkbox" id="check30">
+                <label for="check30">All features working as expected</label>
+            </div>
+            
+            <div class="item">
+                <input type="checkbox" id="check31">
+                <label for="check31">No console errors in browser</label>
+            </div>
+            
+            <div class="item">
+                <input type="checkbox" id="check32">
+                <label for="check32">Read HISTORY_FEATURE_GUIDE.md for full documentation</label>
+            </div>
+        </div>
+
+        <div class="instructions">
+            <h3>📚 Quick Reference</h3>
+            <p><strong>Files to check:</strong></p>
+            <ul>
+                <li><code>HISTORY_FEATURE_GUIDE.md</code> - Complete documentation</li>
+                <li><code>config/migration_add_history.sql</code> - Database migration</li>
+                <li><code>api/get-queue-history.php</code> - History API</li>
+                <li><code>api/export-queue-history.php</code> - Export API</li>
+            </ul>
+            
+            <p><strong>Troubleshooting:</strong></p>
+            <ul>
+                <li>Check browser console (F12) for JavaScript errors</li>
+                <li>Check PHP error logs for server issues</li>
+                <li>Verify XAMPP Apache and MySQL are running</li>
+                <li>Clear browser cache if styles don't update</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        // Save checkbox states to localStorage
+        document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+            // Load saved state
+            const savedState = localStorage.getItem(checkbox.id);
+            if (savedState === 'true') {
+                checkbox.checked = true;
+            }
+            
+            // Save state on change
+            checkbox.addEventListener('change', function() {
+                localStorage.setItem(this.id, this.checked);
+                updateProgress();
+            });
+        });
+        
+        function updateProgress() {
+            const total = document.querySelectorAll('input[type="checkbox"]').length;
+            const checked = document.querySelectorAll('input[type="checkbox"]:checked').length;
+            const percent = Math.round((checked / total) * 100);
+            document.title = `${percent}% Complete - Queue History Test`;
+        }
+        
+        updateProgress();
+    </script>
+</body>
+</html>

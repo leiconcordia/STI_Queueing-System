@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Staff Management Feature - Test Guide</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+        .container {
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.2);
+        }
+        h1 {
+            color: #0054A6;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+        }
+        .feature-box {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border-left: 4px solid #28a745;
+        }
+        .feature-box h3 {
+            color: #28a745;
+            margin-top: 0;
+        }
+        .test-section {
+            margin-bottom: 30px;
+        }
+        .test-section h2 {
+            color: #0054A6;
+            border-bottom: 2px solid #0054A6;
+            padding-bottom: 8px;
+        }
+        .test-item {
+            background: #fff;
+            border: 2px solid #e9ecef;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+        }
+        .test-item input[type="checkbox"] {
+            margin-right: 15px;
+            transform: scale(1.5);
+            cursor: pointer;
+        }
+        .test-item label {
+            flex: 1;
+            cursor: pointer;
+            font-size: 15px;
+        }
+        .badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: bold;
+            margin-left: 8px;
+        }
+        .badge-new {
+            background: #28a745;
+            color: white;
+        }
+        .badge-important {
+            background: #dc3545;
+            color: white;
+        }
+        .badge-info {
+            background: #17a2b8;
+            color: white;
+        }
+        .code-box {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 15px;
+            border-radius: 6px;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            overflow-x: auto;
+            margin: 15px 0;
+        }
+        .warning {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        .success {
+            background: #d4edda;
+            border-left: 4px solid #28a745;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        .info {
+            background: #d1ecf1;
+            border-left: 4px solid #17a2b8;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        .quick-links {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 30px;
+        }
+        .quick-link {
+            background: #0054A6;
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        .quick-link:hover {
+            background: #003d7a;
+            transform: translateY(-3px);
+            box-shadow: 0 4px 12px rgba(0,84,166,0.3);
+        }
+        .progress-bar {
+            width: 100%;
+            height: 30px;
+            background: #e9ecef;
+            border-radius: 15px;
+            overflow: hidden;
+            margin: 20px 0;
+        }
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #28a745, #20c997);
+            transition: width 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>👥 Staff Management Feature</h1>
+        <p class="subtitle">Testing & Implementation Guide</p>
+
+        <div class="success">
+            <strong>✅ Feature Status:</strong> Fully Implemented and Ready for Testing!
+        </div>
+
+        <div class="progress-bar">
+            <div class="progress-fill" id="progressBar" style="width: 0%">0%</div>
+        </div>
+
+        <div class="feature-box">
+            <h3>✨ What's New</h3>
+            <ul>
+                <li><strong>Add Staff Members:</strong> Any staff can add new staff to any department</li>
+                <li><strong>View All Staff:</strong> See complete list of all staff members</li>
+                <li><strong>Filter & Search:</strong> Filter by department or search by name</li>
+                <li><strong>Secure:</strong> Password hashing, session auth, SQL injection protection</li>
+                <li><strong>Responsive:</strong> Works perfectly on desktop, tablet, and mobile</li>
+            </ul>
+        </div>
+
+        <div class="test-section">
+            <h2>🚀 Quick Start</h2>
+            
+            <div class="test-item">
+                <input type="checkbox" id="test1">
+                <label for="test1">
+                    1. Login to your staff dashboard
+                    <span class="badge badge-important">START HERE</span>
+                </label>
+            </div>
+
+            <div class="test-item">
+                <input type="checkbox" id="test2">
+                <label for="test2">
+                    2. Click the "👥 Staff" tab in the navigation
+                    <span class="badge badge-new">NEW</span>
+                </label>
+            </div>
+
+            <div class="test-item">
+                <input type="checkbox" id="test3">
+                <label for="test3">
+                    3. You should see the Add Staff form on the left and Staff List on the right
+                </label>
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h2>📝 Test: Add New Staff</h2>
+
+            <div class="info">
+                <strong>📋 Sample Test Data:</strong>
+                <div class="code-box">Username: test.staff
+Password: test2026
+Full Name: Test Staff Member
+Department: [Choose any department]</div>
+            </div>
+
+            <div class="test-item">
+                <input type="checkbox" id="test4">
+                <label for="test4">
+                    4. Enter username (e.g., "test.staff")
+                </label>
+            </div>
+
+            <div class="test-item">
+                <input type="checkbox" id="test5">
+                <label for="test5">
+                    5. Enter password (minimum 6 characters)
+                </label>
+            </div>
+
+            <div class="test-item">
+                <input type="checkbox" id="test6">
+                <label for="test6">
+                    6. Enter full name
+                </label>
+            </div>
+
+            <div class="test-item">
+                <input type="checkbox" id="test7">
+                <label for="test7">
+                    7. Select a department from dropdown
+                </label>
+            </div>
+
+            <div class="test-item">
+                <input type="checkbox" id="test8">
+                <label for="test8">
+                    8. Click "✓ Add Staff Member" button
+                </label>
+            </div>
+
+            <div class="test-item">
+                <input type="checkbox" id="test9">
+                <label for="test9">
+                    9. Verify success message appears
+                    <span class="badge badge-info">IMPORTANT</span>
+                </label>
+            </div>
+
+            <div class="test-item">
+                <input type="checkbox" id="test10">
+                <label for="test10">
+                    10. Verify new staff appears in the staff list on the right
+                </label>
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h2>🔍 Test: Filter & Search</h2>
+
+            <div class="test-item">
+                <input type="checkbox" id="test11">
+                <label for="test11">
+                    11. Use department dropdown to filter by specific department
+                </label>
+            </div>
+
+            <div class="test-item">
+                <input type="checkbox" id="test12">
+                <label for="test12">
+                    12. Type in search box to search by username or name
+                </label>
+            </div>
+
+            <div class="test-item">
+                <input type="checkbox" id="test13">
+                <label for="test13">
+                    13. Verify list updates as you type
+                </label>
+            </div>
+
+            <div class="test-item">
+                <input type="checkbox" id="test14">
+                <label for="test14">
+                    14. Clear filters and verify all staff show again
+                </label>
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h2>✅ Test: Form Validation</h2>
+
+            <div class="test-item">
+                <input type="checkbox" id="test15">
+                <label for="test15">
+                    15. Try submitting form with empty fields (should show error)
+                </label>
+            </div>
+
+            <div class="test-item">
+                <input type="checkbox" id="test16">
+                <label for="test16">
+                    16. Try password less than 6 characters (should show error)
+                </label>
+            </div>
+
+            <div class="test-item">
+                <input type="checkbox" id="test17">
+                <label for="test17">
+                    17. Try adding staff with existing username (should show error)
+                </label>
+            </div>
+
+            <div class="test-item">
+                <input type="checkbox" id="test18">
+                <label for="test18">
+                    18. Click "↺ Clear Form" button and verify form resets
+                </label>
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h2>🔒 Test: Security Features</h2>
+
+            <div class="test-item">
+                <input type="checkbox" id="test19">
+                <label for="test19">
+                    19. Add a staff member and verify password is not visible in database
+                    <span class="badge badge-info">CHECK DB</span>
+                </label>
+            </div>
+
+            <div class="test-item">
+                <input type="checkbox" id="test20">
+                <label for="test20">
+                    20. Verify newly added staff can login with the password you set
+                </label>
+            </div>
+
+            <div class="test-item">
+                <input type="checkbox" id="test21">
+                <label for="test21">
+                    21. Try accessing API directly without login (should be denied)
+                </label>
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h2>📱 Test: Responsive Design</h2>
+
+            <div class="test-item">
+                <input type="checkbox" id="test22">
+                <label for="test22">
+                    22. Open browser DevTools (F12) and toggle device toolbar
+                </label>
+            </div>
+
+            <div class="test-item">
+                <input type="checkbox" id="test23">
+                <label for="test23">
+                    23. Test on mobile view (375px width)
+                </label>
+            </div>
+
+            <div class="test-item">
+                <input type="checkbox" id="test24">
+                <label for="test24">
+                    24. Test on tablet view (768px width)
+                </label>
+            </div>
+
+            <div class="test-item">
+                <input type="checkbox" id="test25">
+                <label for="test25">
+                    25. Verify form and table layout adjusts properly
+                </label>
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h2>🎯 Test: Multi-Department Access</h2>
+
+            <div class="info">
+                <strong>Key Feature:</strong> Any staff can add staff to ANY department
+            </div>
+
+            <div class="test-item">
+                <input type="checkbox" id="test26">
+                <label for="test26">
+                    26. Login as Cashier staff
+                </label>
+            </div>
+
+            <div class="test-item">
+                <input type="checkbox" id="test27">
+                <label for="test27">
+                    27. Verify you can add staff to Registrar department
+                </label>
+            </div>
+
+            <div class="test-item">
+                <input type="checkbox" id="test28">
+                <label for="test28">
+                    28. Verify you can see all staff from all departments
+                </label>
+            </div>
+        </div>
+
+        <div class="test-section">
+            <h2>🐛 Final Checks</h2>
+
+            <div class="test-item">
+                <input type="checkbox" id="test29">
+                <label for="test29">
+                    29. Open browser console (F12) - should have no errors
+                </label>
+            </div>
+
+            <div class="test-item">
+                <input type="checkbox" id="test30">
+                <label for="test30">
+                    30. Check Network tab - all API calls return 200 status
+                </label>
+            </div>
+
+            <div class="test-item">
+                <input type="checkbox" id="test31">
+                <label for="test31">
+                    31. Read STAFF_MANAGEMENT_GUIDE.md for full documentation
+                </label>
+            </div>
+
+            <div class="test-item">
+                <input type="checkbox" id="test32">
+                <label for="test32">
+                    32. All features working as expected ✨
+                    <span class="badge badge-new">SUCCESS!</span>
+                </label>
+            </div>
+        </div>
+
+        <div class="warning">
+            <h3>⚠️ Important Notes</h3>
+            <ul>
+                <li><strong>Passwords are hashed:</strong> You won't see plain passwords in the database</li>
+                <li><strong>Username must be unique:</strong> Cannot add duplicate usernames</li>
+                <li><strong>Session required:</strong> Must be logged in to use this feature</li>
+                <li><strong>No delete function yet:</strong> Be careful when adding test data</li>
+            </ul>
+        </div>
+
+        <div class="quick-links">
+            <a href="http://localhost/STI_Queuing_System/staff-login" class="quick-link">
+                🔐 Staff Login
+            </a>
+            <a href="STAFF_MANAGEMENT_GUIDE.md" class="quick-link">
+                📚 Full Documentation
+            </a>
+            <a href="test-history-feature.html" class="quick-link">
+                📊 History Feature Test
+            </a>
+        </div>
+
+        <div class="success" style="margin-top: 30px;">
+            <h3>🎉 Congratulations!</h3>
+            <p>The Staff Management feature is fully implemented with:</p>
+            <ul>
+                <li>✅ Add staff to any department</li>
+                <li>✅ View all staff members</li>
+                <li>✅ Filter and search functionality</li>
+                <li>✅ Secure password hashing</li>
+                <li>✅ Form validation</li>
+                <li>✅ Responsive design</li>
+                <li>✅ Session-based security</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        // Save checkbox states and update progress
+        const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+        const progressBar = document.getElementById('progressBar');
+        const total = checkboxes.length;
+
+        checkboxes.forEach(checkbox => {
+            // Load saved state
+            const savedState = localStorage.getItem(checkbox.id);
+            if (savedState === 'true') {
+                checkbox.checked = true;
+            }
+            
+            // Save state on change
+            checkbox.addEventListener('change', function() {
+                localStorage.setItem(this.id, this.checked);
+                updateProgress();
+            });
+        });
+
+        function updateProgress() {
+            const checked = document.querySelectorAll('input[type="checkbox"]:checked').length;
+            const percent = Math.round((checked / total) * 100);
+            progressBar.style.width = percent + '%';
+            progressBar.textContent = percent + '%';
+            document.title = `${percent}% Complete - Staff Management Test`;
+        }
+
+        updateProgress();
+    </script>
+</body>
+</html>
