@@ -12,7 +12,9 @@
     <div class="monitor-container">
         <div class="monitor-header">
             <div class="monitor-title-group">
-                <img src="https://upload.wikimedia.org/wikipedia/en/thumb/5/52/STI_College_Official_Logo.png/220px-STI_College_Official_Logo.png" alt="STI Logo" class="monitor-logo">
+            
+            <img src="http://localhost/STI_Queuing_System/images/STI_logo.png" alt="STI Logo" class="monitor-logo">
+        
                 <div>
                     <h1>STI College Queue Monitor</h1>
                     <p class="monitor-date" id="date-display">Loading...</p>

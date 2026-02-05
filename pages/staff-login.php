@@ -11,9 +11,11 @@
     <div class="login-container">
         <div class="login-card">
             <!-- Logo Placeholder -->
-            <div class="logo-placeholder">
-                STI
-            </div>
+           <div class="logo-placeholder">
+            <img src="http://localhost/STI_Queuing_System/images/STI_logo.png" alt="STI Logo" class="logo">
+        </div>
+
+
             
             <!-- Login Header -->
             <div class="login-header">
@@ -47,7 +49,7 @@
                     >
                 </div>
 
-                <!-- Department Selection -->
+                Department Selection
                 <div class="form-group">
                     <label for="department">Select Department/Counter</label>
                     <select id="department" name="department" required>

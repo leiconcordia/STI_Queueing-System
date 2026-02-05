@@ -627,6 +627,10 @@
   font-size: 32px;
   font-weight: bold;
 }
+.logo {
+    max-width: 100%;
+    height: auto;
+}
 
 .login-form {
   display: flex;

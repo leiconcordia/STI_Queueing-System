@@ -13,7 +13,9 @@
 
         <div id="screen-welcome" class="kiosk-screen active">
             <div class="kiosk-header">
-                <div class="kiosk-logo-box">STI</div>
+                 <div class="logo-placeholder">
+            <img src="http://localhost/STI_Queuing_System/images/STI_logo.png" alt="STI Logo" class="logo">
+        </div>
                 <h1>Welcome to the Student Queue</h1>
                 <p>Please select your department to get a queue number</p>
             </div>

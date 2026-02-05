@@ -43,22 +43,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         if ($isValid) {
-            // Bind staff to their configured department; if null, fall back to selected
-            $sessionDeptId = $user['department_id'] ?? $departmentId;
-            $sessionDeptName = $user['department_name'] ?? '';
+            // Validate that selected department matches staff's actual department
+            if ($user['department_id'] != $departmentId) {
+                echo json_encode([
+                    'success' => false, 
+                    'message' => 'Invalid department. Please select your correct department.'
+                ]);
+                exit;
+            }
             
             session_regenerate_id(true);
             $_SESSION['staff_id'] = $user['id'];
             $_SESSION['staff_name'] = $user['full_name'];
-            $_SESSION['department_id'] = $sessionDeptId;
-            $_SESSION['department_name'] = $sessionDeptName;
+            $_SESSION['department_id'] = $user['department_id'];
+            $_SESSION['department_name'] = $user['department_name'];
             
             echo json_encode([
                 'success' => true,
                 'staff' => [
                     'id' => $user['id'],
                     'name' => $user['full_name'],
-                    'department' => $sessionDeptName
+                    'department' => $user['department_name']
                 ]
             ]);
         } else {
