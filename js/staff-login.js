@@ -10,27 +10,14 @@ document.addEventListener('DOMContentLoaded', function() {
             const username = document.getElementById('username').value.trim();
             const password = document.getElementById('password').value;
 
-         
-            const departmentSelect = document.getElementById('department');
-            const departmentValue = departmentSelect.value;
-
-            // Basic guard to ensure a department was chosen
-            if (!departmentValue) {
-                alert('Please select a department.');
+            if (!username || !password) {
+                alert('Please enter both username and password.');
                 return;
             }
             
-            // Get department ID from value
-            const departmentMap = {
-                'cashier': 1,
-                'admission': 2,
-                'registrar': 3
-            };
-            
             const loginData = {
                 username: username,
-                password: password,
-                department_id: departmentMap[departmentValue]
+                password: password
             };
             
             try {
@@ -46,7 +33,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 const result = await response.json();
                 
                 if (result.success) {
-                    // Redirect to dashboard
+                    // Redirect to dashboard (department is automatically identified)
                     window.location.href = '/STI_Queuing_System/staff-dashboard';
                 } else {
                     alert('Login failed: ' + result.message);

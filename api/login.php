@@ -8,18 +8,13 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     
     $username = trim($data['username'] ?? '');
     $password = $data['password'] ?? '';
-    $departmentId = $data['department_id'] ?? null;
     
     if ($username === '' || $password === '') {
         echo json_encode(['success' => false, 'message' => 'Username and password required']);
         exit;
     }
-    if (empty($departmentId)) {
-        echo json_encode(['success' => false, 'message' => 'Please select a department']);
-        exit;
-    }
     
-    // Get staff user
+    // Get staff user with their department info
     $stmt = $conn->prepare("
         SELECT s.id, s.username, s.password, s.full_name, s.department_id, d.name as department_name
         FROM staff s
@@ -43,15 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         }
 
         if ($isValid) {
-            // Validate that selected department matches staff's actual department
-            if ($user['department_id'] != $departmentId) {
-                echo json_encode([
-                    'success' => false, 
-                    'message' => 'Invalid department. Please select your correct department.'
-                ]);
-                exit;
-            }
-            
+            // Automatically use the staff member's department from their account
             session_regenerate_id(true);
             $_SESSION['staff_id'] = $user['id'];
             $_SESSION['staff_name'] = $user['full_name'];
@@ -63,7 +50,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 'staff' => [
                     'id' => $user['id'],
                     'name' => $user['full_name'],
-                    'department' => $user['department_name']
+                    'department' => $user['department_name'],
+                    'department_id' => $user['department_id']
                 ]
             ]);
         } else {

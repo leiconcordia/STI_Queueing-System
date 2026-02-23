@@ -46,7 +46,8 @@ CREATE TABLE IF NOT EXISTS queue_tickets (
 INSERT INTO departments (name, prefix, window_number) VALUES
 ('Cashier', 'C', 1),
 ('Admission', 'A', 2),
-('Registrar', 'R', 3);
+('Registrar', 'R', 3),
+('Admin', 'ADM', 4);
 
 -- Insert a default staff user (password: admin123)
 INSERT INTO staff (username, password, full_name, department_id) VALUES

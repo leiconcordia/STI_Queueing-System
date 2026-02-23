@@ -49,17 +49,6 @@
                     >
                 </div>
 
-                Department Selection
-                <div class="form-group">
-                    <label for="department">Select Department/Counter</label>
-                    <select id="department" name="department" required>
-                        <option value="" disabled selected>Choose a department...</option>
-                        <option value="cashier">Cashier</option>
-                        <option value="admission">Admission</option>
-                        <option value="registrar">Registrar</option>
-                    </select>
-                </div>
-
                 <!-- Login Button -->
                 <button type="submit" class="btn-primary">Login</button>
             </form>
@@ -67,6 +56,6 @@
     </div>
 
     <!-- <script src="../js/staff-login.js"></script> -->
-          <script src="http://localhost/STI_Queuing_System/js/staff-login.js"></script>
+          <script src="http://localhost/STI_Queuing_System/js/staff-login.js?v=<?php echo time(); ?>"></script>
 </body>
 </html>
